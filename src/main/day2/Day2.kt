@@ -19,7 +19,7 @@ fun part1(input: Array<Int>, r1: Int, r2: Int): Array<Int> {
     array[2] = r2
 
     var index = 0
-    while (array[index] != 99 && index < array.size) {
+    while (array[index] != 99) {
 
         val op1 = array[index.plus(1)]
         val op2 = array[index.plus(2)]
