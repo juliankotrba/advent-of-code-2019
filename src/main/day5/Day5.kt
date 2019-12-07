@@ -9,7 +9,8 @@ fun main() {
     }
 
     println(Arrays.toString(part1(input.toTypedArray())))
-    println(Arrays.toString(part2(input.toTypedArray())))
+    println(Arrays.toString(part2(input.toTypedArray(), 5)))
+
 }
 
 fun part1(array: Array<Int>): Array<Int> {
@@ -49,7 +50,7 @@ fun part1(array: Array<Int>): Array<Int> {
     return array
 }
 
-fun part2(array: Array<Int>): Array<Int> {
+fun part2(array: Array<Int>, input: Int): Array<Int> {
 
     var index = 0
     while (array[index] != 99) {
@@ -68,13 +69,11 @@ fun part2(array: Array<Int>): Array<Int> {
 
             3 -> {
                 val loc = array[index.plus(1)]
-                val input = readLine()!!.toInt()
                 array[loc] = input
                 index += 2
             }
             4 -> {
-                val loc = array[index.plus(1)]
-                println(array[loc])
+                println(getParameter(array, index))
                 index += 2
             }
             5, 6 -> {
@@ -107,6 +106,18 @@ fun part2(array: Array<Int>): Array<Int> {
 
     }
     return array
+}
+
+private fun getParameter(array: Array<Int>, index: Int): Int {
+    val modeParam1 = array[index].div(100).rem(10)
+
+    val op1 = array[index.plus(1)]
+
+    return if (modeParam1 == 0) {
+        array[op1]
+    } else {
+        op1
+    }
 }
 
 private fun getParameters(array: Array<Int>, index: Int): Pair<Int, Int> {
