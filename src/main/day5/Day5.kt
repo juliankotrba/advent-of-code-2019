@@ -121,18 +121,11 @@ private fun getParameter(array: Array<Int>, index: Int): Int {
 }
 
 private fun getParameters(array: Array<Int>, index: Int): Pair<Int, Int> {
-    val modeParam1 = array[index].div(100).rem(10)
+
+    val parameter1 = getParameter(array, index)
+
     val modeParam2 = array[index].div(1000).rem(10)
-
-    val op1 = array[index.plus(1)]
     val op2 = array[index.plus(2)]
-
-
-    val parameter1 = if (modeParam1 == 0) {
-        array[op1]
-    } else {
-        op1
-    }
 
     val parameter2 = if (modeParam2 == 0) {
         array[op2]
