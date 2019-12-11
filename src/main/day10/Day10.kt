@@ -1,8 +1,6 @@
 package day10
 
 import parse
-import kotlin.math.PI
-import kotlin.math.atan
 import kotlin.math.atan2
 
 typealias Map = List<List<Char>>
@@ -48,7 +46,7 @@ fun main() {
 
 }
 
-fun part1(input: List<List<Char>>): Int {
+fun part1(input: Map): Int {
 
     val asteroids = getAsteroids(input)
     val visibleMap = mutableMapOf<Asteroid, Int>()
