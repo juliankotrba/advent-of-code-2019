@@ -16,8 +16,8 @@ fun main() {
     }
     val extendedInput = input + Array(1000) { 0L } // TODO: Dynamic length computation
 
-    val path = part1(extendedInput)
-    println(path.size)
+    println(part1(extendedInput).size)
+    println(part2(extendedInput))
 
 }
 
@@ -102,6 +102,124 @@ fun part1(input: Array<Long>): MutableList<Pair<Position, Long>> {
         state = intComputer(state, back)
 
     }
+}
+
+fun part2(input: Array<Long>): Int {
+
+    val path = mutableListOf<Pair<Position, Long>>()
+    var current = Pair(0, 0)
+    val visited = mutableSetOf<Pair<Int, Int>>()
+    var base = Pair(0,0)
+    visited.add(current)
+
+    var state = IntComputerState(false, input, 0, 0, -1)
+    while (true) {
+
+        if (!visited.contains(current.up())) {
+
+            state = intComputer(state, NORTH)
+            if (!visited.contains(current.up()) && state.output != 0) {
+
+                current = current.up()
+                visited.add(current)
+                path.add(Pair(current, NORTH))
+
+                if (state.output == 2) {
+                    base = current
+                }
+
+                continue
+            }
+        }
+
+        if (!visited.contains(current.right())) {
+            state = intComputer(state, EAST)
+            if (!visited.contains(current.right()) && state.output != 0) {
+
+                current = current.right()
+                visited.add(current)
+                path.add(Pair(current, EAST))
+
+                if (state.output == 2) {
+                    base = current
+                }
+
+                continue
+            }
+        }
+
+        if (!visited.contains(current.down())) {
+
+            state = intComputer(state, SOUTH)
+            if (!visited.contains(current.down()) && state.output != 0) {
+
+                current = current.down()
+                visited.add(current)
+                path.add(Pair(current, SOUTH))
+
+                if (state.output == 2) {
+                    base = current
+                }
+
+                continue
+            }
+        }
+
+        if (!visited.contains(current.left())) {
+            state = intComputer(state, WEST)
+            if (!visited.contains(current.left()) && state.output != 0) {
+
+                current = current.left()
+                visited.add(current)
+                path.add(Pair(current, WEST))
+
+                if (state.output == 2) {
+                    base = current
+                }
+
+                continue
+            }
+
+        }
+
+        val back = path.removeAt(path.size - 1).second.opposite()
+
+        if(path.isEmpty()) {
+           break
+        }
+
+        current = path.last().first
+        state = intComputer(state, back)
+    }
+
+    val containsOxygen = mutableSetOf(base)
+    var minutes = 0
+    while (containsOxygen.size != visited.size) {
+        val tmp = mutableSetOf<Position>()
+
+        containsOxygen.forEach { p ->
+
+            if (visited.contains(p.up())) {
+                tmp.add(p.up())
+            }
+
+            if (visited.contains(p.down())) {
+                tmp.add(p.down())
+            }
+
+            if (visited.contains(p.left())) {
+                tmp.add(p.left())
+            }
+
+            if (visited.contains(p.right())) {
+                tmp.add(p.right())
+            }
+        }
+        containsOxygen.addAll(tmp)
+        minutes++
+    }
+
+    return minutes
 }
 
 data class IntComputerState(
