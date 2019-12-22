@@ -21,6 +21,6 @@
 #### Day 19 :star: :star:
 #### Day 20
 #### Day 21
-#### Day 22
+#### Day 22 :star:
 #### Day 23
 #### Day 24
